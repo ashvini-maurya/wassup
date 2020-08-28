@@ -4,6 +4,12 @@
   flex: 0.35;
 }
 
+.sidebar__chats {
+  background-color: white;
+  flex: 1;
+  overflow: scroll;
+}
+
 .sidebar__search {
   display: flex;
   align-items: center;
