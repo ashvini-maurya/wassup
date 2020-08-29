@@ -8,12 +8,14 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat";
 import db from "./firebase";
+import { useParams } from "react-router-dom";
 
 const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
+  const { roomId } = useParams();
 
   useEffect(() => {
-    db.collection("rooms").onSnapshot((snapshot) =>
+    const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
       setRooms(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -21,6 +23,10 @@ const Sidebar = () => {
         }))
       )
     );
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (
@@ -48,7 +54,7 @@ const Sidebar = () => {
       <div className="sidebar__chats">
         <SidebarChat addNewChat />
         {rooms.map((room) => (
-          <SidebarChat key={room.id} id={room.id} name={room.data.name} />
+          <SidebarChat key={room.id} roomId={room.id} name={room.data.name} />
         ))}
       </div>
     </div>
