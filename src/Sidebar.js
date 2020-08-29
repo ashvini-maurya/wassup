@@ -9,10 +9,11 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat";
 import db from "./firebase";
 import { useParams } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 
 const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
-  const { roomId } = useParams();
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
@@ -32,7 +33,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar />
+        <Avatar src={user?.photoURL} />
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />
