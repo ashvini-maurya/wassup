@@ -15,13 +15,13 @@ function App() {
           <Login />
         ) : (
           <Router>
-            <Sidebar />
             <Switch>
               <Route path="/rooms/:roomId">
+                <Sidebar />
                 <Chat />
               </Route>
               <Route path="/">
-                <Chat />
+                <Sidebar />
               </Route>
             </Switch>
           </Router>
