@@ -25,15 +25,15 @@ const Chat = () => {
 
   return (
     <div className="chat">
-      <div class="chat__header">
+      <div className="chat__header">
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
 
-        <div class="chat__headerInfo">
+        <div className="chat__headerInfo">
           <h3>Room Name</h3>
           <p>Last seen...</p>
         </div>
 
-        <div class="chat__headerRight">
+        <div className="chat__headerRight">
           <IconButton>
             <SearchOutlinedIcon />
           </IconButton>
@@ -50,11 +50,11 @@ const Chat = () => {
         <p className="chat__message chat__receiver">
           <span className="chat__name">Ashvini Kumar</span>
           hello there
-          <span class="chat__timestamp">03:45PM</span>
+          <span className="chat__timestamp">03:45PM</span>
         </p>
       </div>
 
-      <div class="chat__footer">
+      <div className="chat__footer">
         <InsertEmoticonIcon />
         <form>
           <input
