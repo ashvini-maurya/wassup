@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import db from "./firebase";
 import { useStateValue } from "./StateProvider";
 import firebase from "firebase";
+import { useRef } from "react";
 
 const Chat = () => {
   const [input, setInput] = useState("");
@@ -19,6 +20,8 @@ const Chat = () => {
   const [roomName, setRoomName] = useState();
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+
+  const dummy = useRef();
 
   useEffect(() => {
     if (roomId) {
@@ -42,7 +45,6 @@ const Chat = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log(input);
 
     db.collection("rooms").doc(roomId).collection("messages").add({
       message: input,
@@ -51,6 +53,8 @@ const Chat = () => {
     });
 
     setInput("");
+
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -60,7 +64,11 @@ const Chat = () => {
 
         <div className="chat__headerInfo">
           <h3>{roomName}</h3>
-          <p>{new Date(messages[messages.length-1]?.timestamp?.toDate()).toUTCString()}</p>
+          <p>
+            {new Date(
+              messages[messages.length - 1]?.timestamp?.toDate()
+            ).toUTCString()}
+          </p>
         </div>
 
         <div className="chat__headerRight">
@@ -90,6 +98,7 @@ const Chat = () => {
             </span>
           </p>
         ))}
+        <div ref={dummy}></div>
       </div>
 
       <div className="chat__footer">
